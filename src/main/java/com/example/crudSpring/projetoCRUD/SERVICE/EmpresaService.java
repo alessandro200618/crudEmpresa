@@ -1,5 +1,7 @@
 package com.example.crudSpring.projetoCRUD.SERVICE;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 import com.example.crudSpring.projetoCRUD.ENTITY.Empresa;
 import com.example.crudSpring.projetoCRUD.REPOSITORY.EmpresaRepository;
@@ -28,5 +30,13 @@ return empresaRepository.save(dadosEmpresa);
 public void deletarEmpresa(Empresa dadosEmpresa){
     empresaRepository.delete(dadosEmpresa);
 }
+//realizar a busca de dados no banco usando  o id criado na classe
 
+public Optional <Empresa> buscarPorId(Long id){
+    return empresaRepository.findById(id);
+}
+
+public Empresa editarDadoEmpresa(Long id, Empresa dadosAtualizado){
+    return null;
+}
 }
