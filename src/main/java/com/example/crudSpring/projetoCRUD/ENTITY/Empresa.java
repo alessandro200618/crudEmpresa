@@ -21,8 +21,8 @@ public class Empresa {
     @Column(name = "id_empresa", nullable = false, unique=true)
     private Long id_empresa;
 
-    @Column(name = "nome_empresa", nullable = false, length=100)
-    private String nome_empresa;
+    @Column(name = "nome", nullable = false, length=100)
+    private String nome;
 
     @Column(name = "cnpj", nullable = false, length=20, unique=true)
     private int cnpj;
@@ -30,9 +30,11 @@ public class Empresa {
     @Column(name = "ramo", nullable = false, length=100)
     private String ramo;
 
-    public Empresa(String nome_empresa, int cnpj, String ramo) {
-        this.nome_empresa = nome_empresa;
+    public Empresa(String nome, int cnpj, String ramo) {
+        this.nome = nome;
         this.cnpj = cnpj;
         this.ramo = ramo;
     }
+
+    
 }
