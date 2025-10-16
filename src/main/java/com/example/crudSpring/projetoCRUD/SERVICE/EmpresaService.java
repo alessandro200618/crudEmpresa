@@ -2,53 +2,54 @@ package com.example.crudSpring.projetoCRUD.SERVICE;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.relational.core.conversion.SaveBatchingAggregateChange;
 import org.springframework.stereotype.Service;
 import com.example.crudSpring.projetoCRUD.ENTITY.Empresa;
 import com.example.crudSpring.projetoCRUD.REPOSITORY.EmpresaRepository;
-
 @Service
 public class EmpresaService {
-private final EmpresaRepository empresaRepository;
+ 
+ private final EmpresaRepository empresaRepository;
+    //4 operações
+    //Selects, Inserts, Alter Table ou Delete
 
-    // metodo construtor da classe EmpresaSeevice
-    // criando uma ligação com a classe Repository
-    
-    public EmpresaService(EmpresaRepository ligacaoEmpresaRepository){
-        empresaRepository = ligacaoEmpresaRepository;
+    //retorna todos os dados da empresa
+    //(*) = Tudo da tabela
+    //SELECT * FROM EMPRESA  (Select realiza listagem de dados)
+    //Select (Quais dados deseja listar) ([From]onde executar a tabela) 
+
+    // método construtor da classe EmpresaSeevice criando uma ligação com a classe Repository
+    public EmpresaService(EmpresaRepository ligaçãoEmpresaRepository){
+        empresaRepository = ligaçãoEmpresaRepository;
     }
-//selects ou inserts ou alter table ou delete
-//select * From empresa (select realiza listagem de dados)
-//retorna todos os dados da empresa (* - tudo da tabela)
-public List<Empresa> findA11(){
-return empresaRepository.findAll();
-}//select * from empresa
 
-public Empresa cadastarEmpresa(Empresa dadosEmpresa){
-return empresaRepository.save(dadosEmpresa);
-}
+       public List<Empresa> findAll(){
+        return empresaRepository.findAll();
+       }
 
-public void deletarEmpresa(Empresa dadosEmpresa){
-    empresaRepository.delete(dadosEmpresa);
-}
-//realizar a busca de dados no banco usando  o id criado na classe
+       public Empresa cadastrarEmpresa(Empresa dadosEmpresa){
+        return empresaRepository.save(dadosEmpresa); 
+       }
 
-public Optional <Empresa> buscarPorId(Long id){
-    return empresaRepository.findById(id);
-}
+       public void deletarEmpresa(Long id ){
+        empresaRepository.deleteById(id);
+       }
 
-public Empresa editarDadoEmpresa(Long id, Empresa dadosAtualizado){
-   
-    Empresa empresaBuscada = buscarPorId(id).orElseThrow(
-    () -> new IllegalArgumentException("Empresa não encontrada"));
-    
-    empresaBuscada.setNome(dadosAtualizado.getNome());
-    empresaBuscada.setCnpj(dadosAtualizado.getCnpj());
-    empresaBuscada.setRamo(dadosAtualizado.getRamo());
+       //realiza a busca de dados usando o id criado na classe 
+       public Optional<Empresa> buscaPorId(Long id){
+        return empresaRepository.findById(id);
+       }
 
-    return empresaRepository.save(empresaBuscada);
-}
-
-public List<Empresa> buscarEmpresaPorNome(String nome_Empresa){
-    return empresaRepository.findByNomeContainingIgnoreCase(nome_Empresa);
-}
+//get seria pegar esses dados do BDD;
+//set seria "setar" os dados do BDD
+       public Empresa editarDadoEmpresa(Long id, Empresa dadosAtualizados){
+        Empresa empresaBuscada = buscaPorId(id).orElseThrow(() -> new IllegalArgumentException("Empresa não encontrada"));
+        empresaBuscada.setNome(dadosAtualizados.getNome());
+        empresaBuscada.setRamo(dadosAtualizados.getRamo());
+        empresaBuscada.setCnpj(dadosAtualizados.getCnpj());
+        return empresaRepository.save(empresaBuscada);
+    }
+    public List<Empresa> buscarEmpresaPorNome(String nome_empresa){
+        return empresaRepository.findByNomeContainingIgnoreCase(nome_empresa);
+    }
 }

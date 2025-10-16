@@ -35,6 +35,4 @@ public class Empresa {
         this.cnpj = cnpj;
         this.ramo = ramo;
     }
-
-    
 }

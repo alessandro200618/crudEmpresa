@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Empresas</title>
+
+<style>
+    table, th, td {
+    border: 1px solid black; /* Applies a 1px solid black border to the table, table headers, and table data cells */
+    border-collapse: collapse; /* Collapses adjacent borders into a single border */
+    }
+</style>
+</head>
+<body>
+
+    <h2>Lista de Empresas</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>CNPJ</th>
+                <th>Ramo</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Loop para listar todas as empresas -->
+            <tr th:each="empresa : ${empresas}">
+                <td th:text="${empresa.id_empresa}"></td>
+                <td th:text="${empresa.nome}"></td>
+                <td th:text="${empresa.cnpj}"></td>
+                <td th:text="${empresa.ramo}"></td>
+                <td>
+                    <!-- Botão Editar -->
+                    <a th:href="@{/empresaCTR/editar/{id}(id=${empresa.id_empresa})}">Editar</a>
+                    
+                    <!-- Botão Excluir -->
+                    <a th:href="@{/empresaCTR/deletarEmpresa/{id}(id=${empresa.id_empresa})}" 
+                    onclick="return confirm('Deseja realmente excluir esta empresa?')">Excluir</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+
+    <a th:href="@{/empresaCTR/viewCadEmpresa}">Cadastrar Empresa</a>
+
+</body>
+</html>

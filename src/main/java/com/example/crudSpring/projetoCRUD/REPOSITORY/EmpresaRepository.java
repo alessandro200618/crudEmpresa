@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 import com.example.crudSpring.projetoCRUD.ENTITY.Empresa;
 
 @Repository
-public interface EmpresaRepository extends JpaRepository<Empresa, Long>{
+public interface EmpresaRepository extends JpaRepository<Empresa, Long>{   
 
-    List<Empresa>findByNomeContainingIgnoreCase(String nome_empresa);
-    
+    List<Empresa> findByNomeContainingIgnoreCase(String nome_empresa);
+
 }
