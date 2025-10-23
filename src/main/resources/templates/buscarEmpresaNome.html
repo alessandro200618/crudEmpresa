@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Buscar Empresa</title>
+
+    <style>
+    table, th, td {
+    border: 1px solid black; /* Applies a 1px solid black border to the table, table headers, and table data cells */
+    border-collapse: collapse; /* Collapses adjacent borders into a single border */
+    }
+    </style>
+
+</head>
+<body>
+
+    <h2>Buscar Empresa por Nome</h2>
+
+    <!-- Formulário de busca -->
+    <form th:action="@{/empresaCTR/buscarEmpresaPorNome}" method="get">
+        <div>
+            <input type="text" name="nome" th:value="${param.nome}" />
+            <button type="submit">Buscar</button>
+        </div>
+    </form>
+    
+    <br>
+
+    <!-- Exibe a tabela com os resultados -->
+    <div th:if="${empresaNome}">
+        <h4 th:text="'Resultado da busca: ' + ${empresaNome.size()} + ' empresa(s) encontrada(s)'"></h4>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Cnpj</th>
+                    <th>Ramo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="empresa : ${empresaNome}">
+                    <td th:text="${empresa.id_empresa}"></td>
+                    <td th:text="${empresa.nome}"></td>
+                    <td th:text="${empresa.cnpj}"></td>
+                    <td th:text="${empresa.ramo}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

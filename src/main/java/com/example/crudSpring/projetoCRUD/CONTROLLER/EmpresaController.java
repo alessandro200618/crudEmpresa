@@ -73,9 +73,20 @@ empresaService.deletarEmpresa(id);
 
     return "redirect:/empresaCTR/listarTodasEmpresas";
 }
+
+@GetMapping("/formBuscarNome")
+public String mostrarFormBusca(Model oModel) {
+    return "buscarEmpresaNome";
+}
+
+
 @GetMapping("/buscarEmpresaPorNome")
-public List<Empresa> executarPorNome(@RequestParam ("nome") String nome_empresa, Model oModel) {
-    return empresaService.buscarEmpresaPorNome(nome_empresa);
+public String executarPorNome(@RequestParam ("nome") String nome_empresa, Model oModel) {
+
+if(nome_empresa != null && !nome_empresa.isEmpty()){
+    oModel.addAttribute( "empresaNome", empresaService.buscarEmpresaPorNome(nome_empresa));
+}
+    return "buscarEmpresaNome";
 }
 
 
