@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro Funcionario</title>
+</head>
+<body>
+
+    <h2>Cadastrar Funcionario</h2>
+
+    <form th:action="@{/funcionarioCTR/salvarFuncionario}" method="post" th:object="${funcionario}">
+    
+    <label>Nome:</label>
+    <input type="text" th:field="*{nome}" required><br>
+
+    <label>Cargo:</label>
+    <input type="text" th:field="*{cargo}" required><br>
+
+    <label>Salário:</label>
+    <input type="number" step="0.01" th:field="*{salario}" required><br>
+
+    <label>Empresa:</label>
+    <select th:field="*{identificadorEmpresa}" required>
+        <option value="">Selecione uma empresa</option>
+        <option th:each="emp : ${empresas}"
+                th:value="${emp.id_empresa}"
+                th:text="${emp.nome}">
+        </option>
+    </select>
+
+    <button type="submit">Salvar</button>
+
+    </form>
+
+</body>
+</html>
+
+
+_____________________
