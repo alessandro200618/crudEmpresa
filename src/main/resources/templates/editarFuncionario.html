@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Funcionário</title>
+</head>
+<body>
+    <h2>Editar Funcionário</h2>
+
+    <form th:action="@{'/funcionarioCTR/atualizar/'+${funcionario.codigo}}" th:object="${funcionario}" method="post">
+        <label>Nome:</label>
+        <input type="text" th:field="*{nome}" /><br>
+
+        <label>Cargo:</label>
+        <input type="text" th:field="*{cargo}" /><br>
+
+        <label>Salário:</label>
+        <input type="number" step="0.01" th:field="*{salario}" /><br>
+
+        <label>Empresa:</label>
+        <select th:field="*{empresa.id_empresa}">
+            <option th:each="empresa : ${empresas}"
+                    th:value="${empresa.id_empresa}"
+                    th:text="${empresa.nome}"
+                    th:selected="${empresa.id_empresa == funcionario.empresa.identificadorEmpresa}">
+            </option>
+        </select><br><br>
+
+        <button type="submit">Salvar Alterações</button>
+        <a th:href="@{/funcionarioCTR/listarFunc}">Listar todos os Funcionarios</a>
+    </form>
+</body>
+</html>

@@ -35,17 +35,25 @@
             <td th:text="${func.salario}"></td>
             <td th:text="${func.identificadorEmpresa.nome}"></td>
             <td>
-                <a th:href="@{/funcionarioCTR//{id}(id=${func.codigo})}">Editar</a>
+                <td>
+                    <a th:href="@{/funcionarioCTR/editar/{id}(id=${func.codigo})}">
+                        Editar
+                    </a>
+                
+                    <a th:href="@{/funcionarioCTR/excluir/{id}(id=${func.codigo})}"
+                       onclick="return confirm('Deseja realmente excluir este Funcionário?')">
+                       Excluir
+                    </a>
+                </td>
+                
 
-                <a th:href="@{'/funcionarioCTR//' + ${func.codigo}}"
-                onclick="return confirm('Deseja realmente excluir este Funcionário?')">Excluir</a>
             </td>
         </tr>
     </tbody>
 </table>
 
 <br>
-<a th:href="@{/funcionarioCTR/}">Cadastrar Novo Funcionário</a>
+<a th:href="@{/funcionarioCTR/formFuncionario}">Cadastrar Novo Funcionário</a>
 
 </body>
 </html>
