@@ -31,7 +31,7 @@ public class FuncionarioController {
          ligacaoFuncionarioService.listarTodosFuncionarios());
          oModel.addAttribute("empresas",
           ligacaoEmpresaService.findAll());
-
+ 
        
         return "listarFuncionarios";
     }
@@ -41,7 +41,7 @@ public class FuncionarioController {
  
         oModel.addAttribute("funcionario", new Funcionario());
         oModel.addAttribute("empresas", ligacaoEmpresaService.findAll());
-
+ 
  
         return "cadastrarFuncionario";
     }
@@ -51,12 +51,23 @@ public class FuncionarioController {
             ligacaoFuncionarioService.cadastrarFuncionario(objFuncionario);
             return "redirect:/funcionarioCTR/listarFunc";
         }
-        @GetMapping("/excluir/{id}")
+        @GetMapping("/deletarFuncionario/{id}")
         public String excluirFuncionario(@PathVariable("id") Long id) {
             ligacaoFuncionarioService.excluirFuncionario(id);
             return "redirect:/funcionarioCTR/listarFunc";
         }
-        
+ 
+        @GetMapping("/formAtualizar/{id}")
+        public String formAtualizarFuncionario(@PathVariable ("id") Long id, Model oModel) {
+            Funcionario funcionarioEncontrado=ligacaoFuncionarioService.buscarFuncionarioPorId(id).orElseThrow(
+                () -> new IllegalArgumentException("Funcionario não encontrado"));
+                oModel.addAttribute("funcionario", funcionarioEncontrado);
+                oModel.addAttribute("empresas", ligacaoEmpresaService.findAll());
+                return "redirect:/funcionarioCTR/editarFuncionario";
+            }
+       
+       
 }
+ 
  
  
