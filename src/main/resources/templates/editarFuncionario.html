@@ -7,7 +7,7 @@
 <body>
     <h2>Editar Funcionário</h2>
  
-    <form th:action="@{'/funcionarioCTR/atualizar/'+${funcionario.codigo}}" th:object="${funcionario}" method="post">
+    <form th:action="@{'/funcionarioCTR/atualizarFuncionario/'+${funcionario.codigo}}" th:object="${funcionario}" method="post">
         <label>Nome:</label>
         <input type="text" th:field="*{nome}" /><br>
  
@@ -18,11 +18,11 @@
         <input type="number" th:field="*{salario}" /><br>
  
         <label>Empresa:</label>
-        <select th:field="*{empresa.id_empresa}">
+        <select th:field="*{identificadorEmpresa.id_empresa}">
             <option th:each="empresa : ${empresas}"
                     th:value="${empresa.id_empresa}"
                     th:text="${empresa.nome}"
-                    th:selected="${empresa.id_empresa == funcionario.empresa.identificadorEmpresa}">
+                    th:selected="${empresa.id_empresa == funcionario.identificadorEmpresa.id_empresa}">
             </option>
         </select><br><br>
  

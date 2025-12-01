@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.data.relational.core.conversion.SaveBatchingAggregateChange;
 import org.springframework.stereotype.Service;
 import com.example.crudSpring.projetoCRUD.ENTITY.Empresa;
+import com.example.crudSpring.projetoCRUD.ENTITY.Funcionario;
 import com.example.crudSpring.projetoCRUD.REPOSITORY.EmpresaRepository;
 @Service
 public class EmpresaService {
@@ -51,5 +52,10 @@ public class EmpresaService {
     }
     public List<Empresa> buscarEmpresaPorNome(String nome_empresa){
         return empresaRepository.findByNomeContainingIgnoreCase(nome_empresa);
+    }
+
+    public void atualizarFuncionario(Long id, Funcionario objFuncionarioAtualizado) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'atualizarFuncionario'");
     }
 }
