@@ -47,4 +47,8 @@ public class FuncionarioService {
     public void excluirFuncionario(Long id) {
         ligacaoFuncionarioRepository.deleteById(id);
     }
+    public List<Funcionario> buscarFuncionarioPorNome(String nome) {
+    return ligacaoFuncionarioRepository.findByNomeContainingIgnoreCase(nome);
+}
+
 }
