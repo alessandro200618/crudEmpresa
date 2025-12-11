@@ -1,25 +1,130 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Pag Principal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Principal - Sistema de Gestão</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .hero-section {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        .card {
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+    </style>
 </head>
 <body>
+    <!-- Cabeçalho -->
+    <header class="hero-section">
+        <div class="container">
+            <h1 class="display-4">Sistema de Gestão Empresarial</h1>
+            <p class="lead">Gerencie empresas e funcionários de forma eficiente e intuitiva.</p>
+        </div>
+    </header>
 
-    <h1> Links para a páginas:</h1>
+    <!-- Navegação Principal -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">Menu Principal</a>
+        </div>
+    </nav>
 
-    <br><br>
-    <a th:href="@{/empresaCTR/listarTodasEmpresas}">Listar tds empresas / Alterar</a>
-    <br><br>
-    <a th:href="@{/funcionarioCTR/listarFunc}">Listar tds os funcionarios</a>
-    <br><br>
-    <a th:href="@{/empresaCTR/viewCadEmpresa}">Cadastrar Empresa</a>
-    <br><br>
-    <a th:href="@{/empresaCTR/formBuscarNome}">Listar empresa por nome</a>
-    <br><br>
-    <a th:href="@{/funcionarioCTR/formFuncionario}">Cadastrar funcionário</a>
-    <br><br>
-    <a th:href="@{/funcionarioCTR/buscarFuncionarioPorNome}">Listar funcionário por nome</a>
+    <!-- Conteúdo Principal -->
+    <main class="container my-5">
+        <h2 class="text-center mb-4">Acesse as Funcionalidades</h2>
+        <div class="row g-4">
+            <!-- Card para Listar Empresas -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-building display-4 text-primary mb-3"></i>
+                        <h5 class="card-title">Empresas</h5>
+                        <p class="card-text">Liste todas as empresas cadastradas ou faça alterações.</p>
+                        <a th:href="@{/empresaCTR/listarTodasEmpresas}" class="btn btn-primary">Acessar</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Card para Listar Funcionários -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-people display-4 text-success mb-3"></i>
+                        <h5 class="card-title">Funcionários</h5>
+                        <p class="card-text">Veja a lista completa de funcionários.</p>
+                        <a th:href="@{/funcionarioCTR/listarFunc}" class="btn btn-success">Acessar</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Card para Cadastrar Empresa -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-plus-circle display-4 text-info mb-3"></i>
+                        <h5 class="card-title">Cadastrar Empresa</h5>
+                        <p class="card-text">Adicione uma nova empresa ao sistema.</p>
+                        <a th:href="@{/empresaCTR/viewCadEmpresa}" class="btn btn-info">Cadastrar</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Card para Buscar Empresa por Nome -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-search display-4 text-warning mb-3"></i>
+                        <h5 class="card-title">Buscar Empresa</h5>
+                        <p class="card-text">Encontre empresas pelo nome.</p>
+                        <a th:href="@{/empresaCTR/formBuscarNome}" class="btn btn-warning">Buscar</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Card para Cadastrar Funcionário -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-person-plus display-4 text-danger mb-3"></i>
+                        <h5 class="card-title">Cadastrar Funcionário</h5>
+                        <p class="card-text">Registre um novo funcionário.</p>
+                        <a th:href="@{/funcionarioCTR/formFuncionario}" class="btn btn-danger">Cadastrar</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Card para Buscar Funcionário por Nome -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-search-heart display-4 text-secondary mb-3"></i>
+                        <h5 class="card-title">Buscar Funcionário</h5>
+                        <p class="card-text">Localize funcionários pelo nome.</p>
+                        <a th:href="@{/funcionarioCTR/buscarFuncionarioPorNome}" class="btn btn-secondary">Buscar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 
+    <!-- Rodapé -->
+    <footer class="bg-dark text-white text-center py-3">
+        <div class="container">
+            <p>&copy; 2025 Sistema de Gestão Empresarial. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS (opcional, para interatividade) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

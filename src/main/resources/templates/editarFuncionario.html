@@ -1,34 +1,153 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Editar Funcionário</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Funcionário - Santos FC</title>
+    <!-- Bootstrap CSS para responsividade e componentes -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons para ícones -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        /* Tema inspirado no Santos Futebol Clube: Preto, Branco, Azul e Dourado */
+        body {
+            background: linear-gradient(135deg, #000000, #004A99); /* Gradiente de preto para azul do Santos */
+            color: #FFFFFF; /* Texto branco */
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+        }
+        .header-santos {
+            background-color: #FFD700; /* Dourado para destaque */
+            color: #000000; /* Preto para contraste */
+            text-align: center;
+            padding: 2rem 0;
+            border-bottom: 5px solid #FFFFFF; /* Branco para borda */
+            position: relative;
+        }
+        .header-santos h1 {
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .escudo-santos {
+            width: 80px; /* Tamanho do escudo */
+            height: auto;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+        }
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.9); /* Branco semi-transparente */
+            color: #000000; /* Preto para texto */
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            margin: 2rem auto;
+            max-width: 600px;
+        }
+        .form-label {
+            font-weight: bold;
+            color: #004A99; /* Azul do Santos */
+        }
+        .form-control, .form-select {
+            border: 2px solid #FFD700; /* Dourado para bordas */
+            border-radius: 5px;
+        }
+        .btn-santos {
+            background-color: #004A99; /* Azul do Santos */
+            color: #FFFFFF;
+            border: none;
+            font-weight: bold;
+        }
+        .btn-santos:hover {
+            background-color: #00274D; /* Azul mais escuro */
+        }
+        .btn-list {
+            color: #FFD700; /* Dourado para link de listar */
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .btn-list:hover {
+            color: #FFFFFF;
+        }
+        .footer-image {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        .footer-image img {
+            width: 150px; /* Tamanho da imagem de fundo */
+            height: auto;
+            opacity: 0.8;
+        }
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 1rem;
+            }
+            .escudo-santos {
+                width: 60px;
+                top: 5px;
+                left: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h2>Editar Funcionário</h2>
- 
-    <form th:action="@{'/funcionarioCTR/atualizarFuncionario/'+${funcionario.codigo}}" th:object="${funcionario}" method="post">
-        <label>Nome:</label>
-        <input type="text" th:field="*{nome}" /><br>
- 
-        <label>Cargo:</label>
-        <input type="text" th:field="*{cargo}" /><br>
- 
-        <label>Salário:</label>
-        <input type="number" th:field="*{salario}" /><br>
- 
-        <label>Empresa:</label>
-        <select th:field="*{identificadorEmpresa.id_empresa}">
-            <option th:each="empresa : ${empresas}"
-                    th:value="${empresa.id_empresa}"
-                    th:text="${empresa.nome}"
-                    th:selected="${empresa.id_empresa == funcionario.identificadorEmpresa.id_empresa}">
-            </option>
-        </select><br><br>
- 
-        <button type="submit">Salvar Alterações</button>
-        <a th:href="@{/funcionarioCTR/listarFunc}">Listar todos os Funcionarios</a>
-    </form>
+    <!-- Cabeçalho com Tema do Santos FC e Escudo -->
+    <header class="header-santos">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Santos_Logo.png/200px-Santos_Logo.png" alt="Escudo do Santos FC" class="escudo-santos">
+        <div class="container">
+            <h1><i class="bi bi-pencil-square"></i> Editar Funcionário - Santos FC <i class="bi bi-pencil-square"></i></h1>
+            <p>Atualize os dados com o espírito vencedor do Peixe!</p>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="container">
+        <!-- Formulário de Edição -->
+        <div class="form-container">
+            <h2 class="text-center mb-4">Formulário de Edição de Funcionário</h2>
+            <form th:action="@{'/funcionarioCTR/atualizarFuncionario/'+${funcionario.codigo}}" th:object="${funcionario}" method="post">
+                <div class="mb-3">
+                    <label for="nome" class="form-label">Nome:</label>
+                    <input type="text" id="nome" th:field="*{nome}" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="cargo" class="form-label">Cargo:</label>
+                    <input type="text" id="cargo" th:field="*{cargo}" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="salario" class="form-label">Salário:</label>
+                    <input type="number" id="salario" step="0.01" th:field="*{salario}" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="empresa" class="form-label">Empresa:</label>
+                    <select id="empresa" th:field="*{identificadorEmpresa.id_empresa}" class="form-select" required>
+                        <option th:each="empresa : ${empresas}"
+                                th:value="${empresa.id_empresa}"
+                                th:text="${empresa.nome}"
+                                th:selected="${empresa.id_empresa == funcionario.identificadorEmpresa.id_empresa}">
+                        </option>
+                    </select>
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-santos"><i class="bi bi-check-circle"></i> Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Link para Listar Funcionários -->
+        <div class="text-center">
+            <a th:href="@{/funcionarioCTR/listarFunc}" class="btn-list"><i class="bi bi-list-ul"></i> Listar Todos os Funcionários</a>
+        </div>
+
+        <!-- Imagem de Fundo/Temática no Rodapé da Página -->
+        <div class="footer-image">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Vila_Belmiro.jpg/400px-Vila_Belmiro.jpg" alt="Estádio Vila Belmiro - Casa do Santos FC">
+            <p class="text-white mt-2">Vila Belmiro: O templo sagrado do Santos FC!</p>
+        </div>
+    </main>
+
+    <!-- Bootstrap JS (opcional, para interatividade) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
- 

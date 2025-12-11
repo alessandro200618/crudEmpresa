@@ -1,59 +1,186 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Listar Funcionários</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar Funcionários - Santos FC</title>
+    <!-- Bootstrap CSS para responsividade e componentes -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons para ícones -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <style>
-    table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-    }
+        /* Tema inspirado no Santos Futebol Clube: Preto, Branco, Azul e Dourado */
+        body {
+            background: linear-gradient(135deg, #000000, #004A99); /* Gradiente de preto para azul do Santos */
+            color: #FFFFFF; /* Texto branco */
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+        }
+        .header-santos {
+            background-color: #FFD700; /* Dourado para destaque */
+            color: #000000; /* Preto para contraste */
+            text-align: center;
+            padding: 2rem 0;
+            border-bottom: 5px solid #FFFFFF; /* Branco para borda */
+            position: relative;
+        }
+        .header-santos h1 {
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .escudo-santos {
+            width: 80px; /* Tamanho do escudo */
+            height: auto;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+        }
+        .table-container {
+            background-color: rgba(255, 255, 255, 0.9); /* Branco semi-transparente */
+            color: #000000; /* Preto para texto */
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            margin: 2rem auto;
+            max-width: 100%;
+        }
+        .table-santos {
+            background-color: #FFFFFF;
+            color: #000000;
+            border: 2px solid #FFD700; /* Dourado para borda */
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .table-santos th {
+            background-color: #004A99; /* Azul para cabeçalho */
+            color: #FFFFFF;
+            padding: 10px;
+            text-align: center;
+        }
+        .table-santos td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #FFD700;
+        }
+        .table-santos tr:nth-child(even) {
+            background-color: #F0F0F0; /* Cinza claro para linhas alternadas */
+        }
+        .btn-edit {
+            color: #004A99; /* Azul para editar */
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .btn-edit:hover {
+            color: #00274D;
+        }
+        .btn-delete {
+            color: #DC3545; /* Vermelho para excluir */
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .btn-delete:hover {
+            color: #B02A37;
+        }
+        .btn-add {
+            background-color: #004A99; /* Azul do Santos */
+            color: #FFFFFF;
+            border: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-add:hover {
+            background-color: #00274D;
+        }
+        .footer-image {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        .footer-image img {
+            width: 150px; /* Tamanho da imagem de fundo */
+            height: auto;
+            opacity: 0.8;
+        }
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .table-container {
+                padding: 1rem;
+            }
+            .escudo-santos {
+                width: 60px;
+                top: 5px;
+                left: 10px;
+            }
+            .table-santos th, .table-santos td {
+                padding: 5px;
+                font-size: 0.9rem;
+            }
+        }
     </style>
-
 </head>
 <body>
+    <!-- Cabeçalho com Tema do Santos FC e Escudo -->
+    <header class="header-santos">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Santos_Logo.png/200px-Santos_Logo.png" alt="Escudo do Santos FC" class="escudo-santos">
+        <div class="container">
+            <h1><i class="bi bi-people"></i> Lista de Funcionários - Santos FC <i class="bi bi-people"></i></h1>
+            <p>Gerencie funcionários com o espírito vencedor do Peixe!</p>
+        </div>
+    </header>
 
-<h2>Lista de Funcionários</h2>
+    <!-- Conteúdo Principal -->
+    <main class="container">
+        <!-- Tabela de Funcionários -->
+        <div class="table-container">
+            <h2 class="text-center mb-4">Funcionários Cadastrados</h2>
+            <div class="table-responsive">
+                <table class="table-santos">
+                    <thead>
+                        <tr>
+                            <th><i class="bi bi-hash"></i> Código</th>
+                            <th><i class="bi bi-person"></i> Nome</th>
+                            <th><i class="bi bi-briefcase"></i> Cargo</th>
+                            <th><i class="bi bi-cash"></i> Salário</th>
+                            <th><i class="bi bi-building"></i> Empresa</th>
+                            <th><i class="bi bi-gear"></i> Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="func : ${funcionarios}">
+                            <td th:text="${func.codigo}"></td>
+                            <td th:text="${func.nome}"></td>
+                            <td th:text="${func.cargo}"></td>
+                            <td th:text="${func.salario}"></td>
+                            <td th:text="${func.identificadorEmpresa.nome}"></td>
+                            <td>
+                                <!-- Botão Editar -->
+                                <a th:href="@{/funcionarioCTR/formAtualizar/{id}(id=${func.codigo})}" class="btn-edit me-2"><i class="bi bi-pencil-square"></i> Editar</a>
+                                
+                                <!-- Botão Excluir -->
+                                <a th:href="@{/funcionarioCTR/deletarFuncionario/{id}(id=${func.codigo})}"
+                                onclick="return confirm('Deseja realmente excluir este Funcionário?')" class="btn-delete"><i class="bi bi-trash"></i> Excluir</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-<table border="1">
-    <thead>
-        <tr>
-            <th>Codigo</th>
-            <th>Nome</th>
-            <th>Cargo</th>
-            <th>Salário</th>
-            <th>Empresa</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr th:each="func : ${funcionarios}">
-            <td th:text="${func.codigo}"></td>
-            <td th:text="${func.nome}"></td>
-            <td th:text="${func.cargo}"></td>
-            <td th:text="${func.salario}"></td>
-            <td th:text="${func.identificadorEmpresa.nome}"></td>
-            <td>
-                <td>
-                    <a th:href="@{/funcionarioCTR/formAtualizar/{id}(id=${func.codigo})}">
-                        Editar
-                    </a>
-                
-                    <a th:href="@{/funcionarioCTR/deletarFuncionario/{id}(id=${func.codigo})}"
-                       onclick="return confirm('Deseja realmente excluir este Funcionário?')">
-                       Excluir
-                    </a>
-                </td>
-                
+        <!-- Link para Cadastrar Novo Funcionário -->
+        <div class="text-center">
+            <a th:href="@{/funcionarioCTR/formFuncionario}" class="btn-add"><i class="bi bi-plus-circle"></i> Cadastrar Novo Funcionário</a>
+        </div>
 
-            </td>
-        </tr>
-    </tbody>
-</table>
+        <!-- Imagem de Fundo/Temática no Rodapé da Página -->
+        <div class="footer-image">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Vila_Belmiro.jpg/400px-Vila_Belmiro.jpg" alt="Estádio Vila Belmiro - Casa do Santos FC">
+            <p class="text-white mt-2">Vila Belmiro: O templo sagrado do Santos FC!</p>
+        </div>
+    </main>
 
-<br>
-<a th:href="@{/funcionarioCTR/formFuncionario}">Cadastrar Novo Funcionário</a>
-
+    <!-- Bootstrap JS (opcional, para interatividade) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
